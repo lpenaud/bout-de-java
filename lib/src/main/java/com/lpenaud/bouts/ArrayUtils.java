@@ -18,10 +18,8 @@ public class ArrayUtils {
 	 * ArrayUtils.copy(src, dest, 0);
 	 * </pre>
 	 *
-	 * @param src
-	 *            The source array
-	 * @param dest
-	 *            The destination array.
+	 * @param src  The source array
+	 * @param dest The destination array.
 	 * @see ArrayUtils#copy(Object[], Object[], int)
 	 */
 	public static void copy(final Object[] src, final Object[] dest) {
@@ -33,12 +31,9 @@ public class ArrayUtils {
 	 * source array is greeter than the destination one copy from 0 to destination
 	 * length otherwise 0 to source length.
 	 *
-	 * @param src
-	 *            The source array
-	 * @param dest
-	 *            The destination array.
-	 * @param srcPos
-	 *            Starting position in the source array.
+	 * @param src    The source array
+	 * @param dest   The destination array.
+	 * @param srcPos Starting position in the source array.
 	 * @see System#arraycopy(Object, int, Object, int, int)
 	 */
 	public static void copy(final Object[] src, final Object[] dest, final int srcPos) {
@@ -51,12 +46,9 @@ public class ArrayUtils {
 	/**
 	 * Fill the array with the results of the given factory.
 	 *
-	 * @param <T>
-	 *            Array type
-	 * @param array
-	 *            Array to fill.
-	 * @param factory
-	 *            Object supplier.
+	 * @param <T>     Array type
+	 * @param array   Array to fill.
+	 * @param factory Object supplier.
 	 * @return The same input array.
 	 */
 	public static <T> T[] fill(final T[] array, final Supplier<T> factory) {
@@ -69,12 +61,9 @@ public class ArrayUtils {
 	/**
 	 * Fill the array with the results of the given factory.
 	 *
-	 * @param <T>
-	 *            Array type
-	 * @param array
-	 *            Array to fill.
-	 * @param factory
-	 *            Object supplier.
+	 * @param <T>     Array type
+	 * @param array   Array to fill.
+	 * @param factory Object supplier.
 	 * @return The same input array.
 	 */
 	public static <T> T[] fill(final T[] array, final IntFunction<T> factory) {

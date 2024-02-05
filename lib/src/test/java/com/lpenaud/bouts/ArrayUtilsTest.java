@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 class ArrayUtilsTest {
 
-	private static final String[] ARRAY = {"abc", "bcd"};
+	private static final String[] ARRAY = { "abc", "bcd" };
 
 	@Test
 	void testCopy() {
@@ -16,7 +16,7 @@ class ArrayUtilsTest {
 
 	@Test
 	void testCopySrcPosGt() {
-		final Object[] expected = {null, null};
+		final Object[] expected = { null, null };
 		final var actual = new String[ARRAY.length];
 		ArrayUtils.copy(ARRAY, actual, 2);
 		Assertions.assertArrayEquals(expected, actual);
@@ -24,7 +24,7 @@ class ArrayUtilsTest {
 
 	@Test
 	void testCopyDestLtSrc() {
-		final Object[] expected = {ARRAY[0]};
+		final Object[] expected = { ARRAY[0] };
 		final var actual = new String[expected.length];
 		ArrayUtils.copy(ARRAY, actual);
 		Assertions.assertArrayEquals(expected, actual);
@@ -37,7 +37,7 @@ class ArrayUtilsTest {
 	@Test
 	void testFillObject() {
 		final var singleton = new Object();
-		final Object[] expected = {singleton, singleton, singleton};
+		final Object[] expected = { singleton, singleton, singleton };
 		final var actual = new Object[expected.length];
 		Assertions.assertEquals(actual, ArrayUtils.fill(actual, () -> singleton));
 		Assertions.assertArrayEquals(expected, actual);
@@ -45,7 +45,7 @@ class ArrayUtilsTest {
 
 	@Test
 	void testFillInt() {
-		final Object[] expected = {0, 1, 4};
+		final Object[] expected = { 0, 1, 4 };
 		final var actual = new Object[expected.length];
 		Assertions.assertEquals(actual, ArrayUtils.fill(actual, i -> i * i));
 		Assertions.assertArrayEquals(expected, actual);

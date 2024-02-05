@@ -63,6 +63,6 @@ spotless {
   java {
     importOrder()
     removeUnusedImports()
-    eclipse()
+    eclipse().configFile("./eclipse-format.xml")
   }
 }
