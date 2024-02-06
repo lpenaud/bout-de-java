@@ -39,7 +39,8 @@ class ArrayUtilsTest {
 		final var singleton = new Object();
 		final Object[] expected = { singleton, singleton, singleton };
 		final var actual = new Object[expected.length];
-		Assertions.assertEquals(actual, ArrayUtils.fill(actual, () -> singleton));
+		Assertions.assertEquals(actual,
+				ArrayUtils.fill(actual, () -> singleton));
 		Assertions.assertArrayEquals(expected, actual);
 	}
 

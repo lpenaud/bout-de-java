@@ -33,7 +33,8 @@ public class AsyncHelpers<T> {
 		private Supplier<Deque<RunnableFuture<T>>> listFactory = ArrayDeque::new;
 
 		public AsyncHelpers<T> build() {
-			return new AsyncHelpers<>(this.threadBuilder(), this.listFactory.get());
+			return new AsyncHelpers<>(this.threadBuilder(),
+					this.listFactory.get());
 		}
 
 		private Thread.Builder threadBuilder() {

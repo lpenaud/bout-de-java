@@ -10,8 +10,8 @@ public class ArrayUtils {
 
 	/**
 	 * Copy the source array in the destination one at 0 index If length of the
-	 * source array is greeter than the destination one copy from 0 to destination
-	 * length otherwise 0 to source length. <br>
+	 * source array is greeter than the destination one copy from 0 to
+	 * destination length otherwise 0 to source length. <br>
 	 * Equivalent of:
 	 *
 	 * <pre>
@@ -28,19 +28,21 @@ public class ArrayUtils {
 
 	/**
 	 * Copy the source array in the destination one at 0 index. If length of the
-	 * source array is greeter than the destination one copy from 0 to destination
-	 * length otherwise 0 to source length.
+	 * source array is greeter than the destination one copy from 0 to
+	 * destination length otherwise 0 to source length.
 	 *
 	 * @param src    The source array
 	 * @param dest   The destination array.
 	 * @param srcPos Starting position in the source array.
 	 * @see System#arraycopy(Object, int, Object, int, int)
 	 */
-	public static void copy(final Object[] src, final Object[] dest, final int srcPos) {
+	public static void copy(final Object[] src, final Object[] dest,
+			final int srcPos) {
 		if (src.length <= srcPos) {
 			return;
 		}
-		System.arraycopy(src, srcPos, dest, 0, src.length > dest.length ? dest.length : src.length);
+		System.arraycopy(src, srcPos, dest, 0,
+				src.length > dest.length ? dest.length : src.length);
 	}
 
 	/**

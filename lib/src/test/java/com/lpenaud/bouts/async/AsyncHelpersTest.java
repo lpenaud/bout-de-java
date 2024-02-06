@@ -19,8 +19,9 @@ class AsyncHelpersTest {
 				.prefix(prefix)
 				.start(start)
 				.build();
-		expected.forEach(i -> asyncHelpers.addCallable(() -> Thread.currentThread()
-				.getName()));
+		expected.forEach(
+				i -> asyncHelpers.addCallable(() -> Thread.currentThread()
+						.getName()));
 		final var results = asyncHelpers.get();
 		for (int i = 0; i < results.size(); i++) {
 			Assertions.assertEquals(expected.get(i), results.get(i));
