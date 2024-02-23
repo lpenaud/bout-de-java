@@ -5,6 +5,8 @@ import java.util.function.Supplier;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
+import com.lpenaud.bouts.function.ArrayPredicate;
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ArrayUtils {
 
@@ -74,4 +76,19 @@ public class ArrayUtils {
 		}
 		return array;
 	}
+
+    /**
+     * Map an array of object into a boolean array.
+     * @param <T> Object type.
+     * @param array Array to map.
+     * @param mapper Method to use to create the boolean values.
+     * @return A new boolean array of the same length than given one.
+     */
+    public static <T> boolean[] mapToBoolean(final T[] array, final ArrayPredicate<T> mapper) {
+        final var bools = new boolean[array.length];
+        for (int i = 0; i < bools.length; i++) {
+            bools[i] = mapper.test(array[i], i, array);
+        }
+        return bools;
+    }
 }
