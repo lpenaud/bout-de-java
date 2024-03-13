@@ -2,6 +2,7 @@ package com.lpenaud.bouts.reflection;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.stream.Stream;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ public class ReflectionUtils {
 	 * @return Stream with all parent {@linkplain Object} included.
 	 */
 	public static Stream<Class<?>> getAllParents(final Class<?> type) {
-		return Stream.iterate(type, t -> t != null, Class::getSuperclass);
+		return Stream.iterate(type, Objects::nonNull, Class::getSuperclass);
 	}
 
 	/**
