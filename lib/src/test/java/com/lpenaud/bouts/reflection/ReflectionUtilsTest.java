@@ -1,11 +1,13 @@
 package com.lpenaud.bouts.reflection;
 
 import java.util.Arrays;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 class ReflectionUtilsTest {
 
@@ -60,6 +62,19 @@ class ReflectionUtilsTest {
 		final var expected = "getJohnValue";
 		final var actual = ReflectionUtils.prefixField(field, "get");
 		Assertions.assertEquals(expected, actual);
+	}
+
+	@Test
+	void testGetConstructor() {
+		final var doe = new Doe();
+		final var expected = new John(doe);
+		final var contructor = ReflectionUtils.getConstructor(John.class,
+				Object.class);
+		final var actual = contructor.newInstance(doe);
+		// It's a new instance
+		Assertions.assertTrue(expected != actual);
+		// With the same attributes
+		Assertions.assertTrue(expected.johnValue == actual.johnValue);
 	}
 
 }

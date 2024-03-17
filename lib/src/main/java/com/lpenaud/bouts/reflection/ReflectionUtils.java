@@ -2,6 +2,7 @@ package com.lpenaud.bouts.reflection;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.stream.Stream;
 import lombok.AccessLevel;
@@ -59,18 +60,20 @@ public class ReflectionUtils {
 	}
 
 	/**
-     * Find an contructor of the given type with given types arguments.
-     * @param <T> Type of the result object.
-     * @param type Type of the result object.
-     * @param args Arguments types.
-     * @return Contructor of T object which take the given arguments.
-     * @throws NoSuchElementException If no contructor is found.
-     */
-    public static <T> Constructor<T> getConstructor(final Class<T> type, final Class<?>... args) {
-        try {
-            return type.getConstructor(args);
-        } catch (final NoSuchMethodException e) {
-            throw new NoSuchElementException("Cannot find contructor", e);
-        }
-    }
+	 * Find an contructor of the given type with given types arguments.
+	 * 
+	 * @param <T>  Type of the result object.
+	 * @param type Type of the result object.
+	 * @param args Arguments types.
+	 * @return Contructor of T object which take the given arguments.
+	 * @throws NoSuchElementException If no contructor is found.
+	 */
+	public static <T> ConstructorWrapper<T> getConstructor(final Class<T> type,
+			final Class<?>... args) {
+		try {
+			return new ConstructorWrapper<>(type.getConstructor(args));
+		} catch (final NoSuchMethodException e) {
+			throw new NoSuchElementException("Cannot find contructor", e);
+		}
+	}
 }

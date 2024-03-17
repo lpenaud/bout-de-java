@@ -1,19 +1,28 @@
 package com.lpenaud.bouts.reflection.property;
 
-import com.lpenaud.bouts.reflection.exception.ReflectionException;
 import java.lang.reflect.Method;
-import lombok.AccessLevel;
+
+import com.lpenaud.bouts.reflection.exception.ReflectionException;
+
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 
-@Builder(access = AccessLevel.PACKAGE)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class Property {
+/**
+ * Java property. Can be (im)utable.
+ */
+@AllArgsConstructor
+public abstract class Property {
 
-	private final Method getter;
+	/**
+	 * Getter method.
+	 */
+	protected final Method getter;
 
-	private final Method setter;
-
+	/**
+	 * Get the property value from the target.
+	 *
+	 * @param target Target to use.
+	 * @return The property value.
+	 */
 	public Object getObject(final Object target) {
 		try {
 			return this.getter.invoke(target);
@@ -22,11 +31,16 @@ public class Property {
 		}
 	}
 
-	public void set(final Object target, final Object value) {
-		try {
-			this.setter.invoke(target, value);
-		} catch (final ReflectiveOperationException e) {
-			throw new ReflectionException("Cannot set property", e);
-		}
+	/**
+	 * Set the property from the target.
+	 *
+	 * @param target Target to use.
+	 * @param value  New value to set.
+	 * @throws UnsupportedOperationException If the property is immutable.
+	 */
+	public void setObject(final Object target, final Object value) {
+		throw new UnsupportedOperationException(
+				"Immutable property cannot be set");
 	}
+
 }

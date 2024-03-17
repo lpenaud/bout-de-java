@@ -1,7 +1,11 @@
 package com.lpenaud.bouts.reflection;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import com.lpenaud.bouts.reflection.property.Property;
 import com.lpenaud.bouts.reflection.property.PropertyFactory;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +13,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 class PropertyTest {
 
@@ -45,8 +47,8 @@ class PropertyTest {
 	void testPojo() {
 		final var expected = new Pojo(123, "test");
 		final var actual = new Pojo();
-		final var properties = new PropertyFactory()
-				.properties(Pojo.class)
+		final var properties = new PropertyFactory<>(Pojo.class)
+				.properties()
 				.iterator();
 		Assertions.assertNotEquals(expected, actual);
 		Assertions.assertTrue(properties.hasNext());
@@ -60,10 +62,10 @@ class PropertyTest {
 	@Test
 	void testPojoRecord() {
 		final var expected = new PojoRecord(123, "test");
-		final var properties = new PropertyFactory()
+		final var properties = new PropertyFactory<>(PojoRecord.class)
 				.getterPrefix("")
 				.setterPrefix("")
-				.properties(PojoRecord.class)
+				.properties()
 				.iterator();
 		Assertions.assertTrue(properties.hasNext());
 		Assertions.assertEquals(properties.next().getObject(expected),
@@ -81,7 +83,7 @@ class PropertyTest {
 
 	void setProperty(final Property property, final Object target,
 			final Object value) {
-		property.set(target, value);
+		property.setObject(target, value);
 		Assertions.assertEquals(value, property.getObject(target));
 	}
 
