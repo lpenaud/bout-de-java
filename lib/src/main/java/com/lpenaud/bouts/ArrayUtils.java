@@ -9,6 +9,16 @@ import lombok.NoArgsConstructor;
 public class ArrayUtils {
 
 	/**
+	 * Empty object array.
+	 */
+	public static final Object[] EMPTY_OBJECT_ARRAY = new Object[0];
+
+	/**
+	 * Empty byte array.
+	 */
+	public static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
+
+	/**
 	 * Copy the source array in the destination one at 0 index If length of the
 	 * source array is greeter than the destination one copy from 0 to
 	 * destination length otherwise 0 to source length. <br>
@@ -54,6 +64,9 @@ public class ArrayUtils {
 	 * @return The same input array.
 	 */
 	public static <T> T[] fill(final T[] array, final Supplier<T> factory) {
+		if (array.length == 0) {
+			return ArrayUtils.EMPTY_OBJECT_ARRAY;
+		}
 		for (int i = 0; i < array.length; i++) {
 			array[i] = factory.get();
 		}
@@ -74,4 +87,50 @@ public class ArrayUtils {
 		}
 		return array;
 	}
+
+	/**
+     * Concat arrays.
+     * If no arrays is given return empty array.
+     * Always return new array expect if no arrays is given.
+     * @param arrays Arrays to concat.
+     * @return New array with all given values.
+     */
+    public static byte[] cat(final byte[]... arrays) {
+        if (arrays.length == 0) {
+            return ArrayUtils.EMPTY_BYTE_ARRAY;
+        }
+        if (arrays.length == 1) {
+            return arrays[0].clone();
+        }
+        var length = 0;
+        for (final var array : arrays) {
+            length += array.length;
+        }
+        final var result = new byte[length];
+        var destPos = 0;
+        for (final var array : arrays) {
+            System.arraycopy(array, 0, result, destPos, array.length);
+            destPos += array.length;
+        }
+        return result;
+    }
+
+    /**
+     * If the given array is null return empty one.
+     * @param <T> Array type value.
+     * @param array Nullable array.
+     * @return Return the given array if it's not empty otherwise an empty one.
+     */
+    public static <T> T[] nullToEmpty(final T[] array) {
+        return array == null ? ArrayUtils.emptyArray() : array;
+    }
+
+    /**
+     * @param <T> Array type value.
+     * @return Empty array with the given type.
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T[] emptyArray() {
+        return (T[]) ArrayUtils.EMPTY_OBJECT_ARRAY;
+    }
 }

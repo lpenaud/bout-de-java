@@ -51,4 +51,52 @@ class ArrayUtilsTest {
 		Assertions.assertEquals(actual, ArrayUtils.fill(actual, i -> i * i));
 		Assertions.assertArrayEquals(expected, actual);
 	}
+
+	@Test
+    void testCopyObjectArray() {
+        final var source = new Object[] { 1, 2, 3 };
+        final var actual = new Object[1];
+        // Ingore silencieusement un index trop grand
+        ArrayUtils.copy(source, actual, source.length);
+        Assertions.assertArrayEquals(new Object[1], actual);
+        // Prend la taille la plus petite pour la copie
+        ArrayUtils.copy(source, actual, 0);
+        Assertions.assertArrayEquals(new Object[] { 1 }, actual);
+    }
+
+    @Test
+    void testCopyByteArray() {
+        final var source = new byte[] { 1, 2, 3 };
+        var expected = new byte[1];
+        var actual = new byte[1];
+        // Ingore silencieusement un index trop grand
+        ArrayUtils.copy(source, actual, source.length);
+        Assertions.assertArrayEquals(expected, actual);
+        // Prend la taille la plus petite pour la copie
+        expected = new byte[] { 1 };
+        ArrayUtils.copy(source, actual, 0);
+        Assertions.assertArrayEquals(expected, actual);
+        actual = new byte[source.length + 1];
+        expected = new byte[] { 1, 2, 3, 0 };
+        ArrayUtils.copy(source, actual);
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    void testCatByteArray() {
+        var expected = new byte[0];
+        var actual = ArrayUtils.cat();
+        // Si aucun tableau est donnée alors retourne un tableau vide.
+        Assertions.assertArrayEquals(expected, actual);
+        expected = new byte[] { 1 };
+        actual = ArrayUtils.cat(expected);
+        // Devrait être une instance.
+        Assertions.assertNotSame(expected, actual);
+        // Devrait avoir les même valeurs.
+        Assertions.assertArrayEquals(expected, actual);
+        expected = new byte[] { 1, 2, 3 };
+        actual = ArrayUtils.cat(new byte[0], new byte[] { 1, 2 }, new byte[] { 3 });
+        // Devrait copier tout les tableaux.
+        Assertions.assertArrayEquals(expected, actual);
+    }
 }
